@@ -283,7 +283,6 @@ const initGallery = () => {
   const grid = $('#galleryGrid');
   if (!grid) return;
 
-  const filters = $$('.filter[data-filter]');
   const loadMoreBtn = $('#loadMore');
 
   const lightbox = $('#lightbox');
@@ -307,21 +306,6 @@ const initGallery = () => {
     if (!loadMoreBtn) return;
     const hasMore = rendered < total;
     loadMoreBtn.toggleAttribute('hidden', !hasMore);
-  };
-
-  const applyFilter = (filter) => {
-    activeFilter = filter;
-    filters.forEach((btn) => btn.classList.toggle('is-active', btn.dataset.filter === filter));
-    getTiles().forEach((tile) => {
-      if (filter === 'all') {
-        tile.removeAttribute('hidden');
-        return;
-      }
-      const tags = (tile.getAttribute('data-tags') || '').split(/\s+/).filter(Boolean);
-      if (tags.includes(filter)) tile.removeAttribute('hidden');
-      else tile.setAttribute('hidden', '');
-    });
-    computeVisible();
   };
 
   const openLightbox = (tile) => {
@@ -406,12 +390,9 @@ const initGallery = () => {
 
     renderedCount += next.length;
     wireTileClicks(newTiles);
-    applyFilter(activeFilter);
+    computeVisible();
     updateLoadMoreVisibility(renderedCount, galleryItems.length);
   };
-
-  // Wire filters
-  filters.forEach((btn) => btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'all')));
 
   // Render or wire existing
   if (shouldRenderFromJs) {
@@ -423,9 +404,7 @@ const initGallery = () => {
     if (loadMoreBtn) loadMoreBtn.setAttribute('hidden', '');
   }
 
-  // Default filter
-  if (filters.length) applyFilter('all');
-  else computeVisible();
+  computeVisible();
 
   if (lightbox) {
     lightbox.addEventListener('click', (event) => {
@@ -471,3 +450,6 @@ if (progressBar) {
   animateProgressBar();
   setInterval(animateProgressBar, HERO_DURATION);
 }
+
+// Initialize gallery if present
+initGallery();

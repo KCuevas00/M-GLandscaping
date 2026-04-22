@@ -732,11 +732,7 @@ a{ color: inherit; }
   justify-items: center;
   gap: 8px;
 }
-.gallery-more-note{
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-}
+
 .gallery-tile{
   grid-column: span 4;
   padding: 0;
@@ -760,6 +756,27 @@ a{ color: inherit; }
   filter: saturate(0.9) contrast(1.02);
 }
 .gallery-tile[hidden]{ display:none; }
+
+#loadMore {
+  background: #e5e7eb; /* light gray */
+  color: #111;
+  border: 1px solid #d1d5db;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+#loadMore:hover {
+  background: #d1d5db;
+  transform: translateY(-1px);
+}
+
+#loadMore:active {
+  transform: translateY(0);
+  background: #cbd5e1;
+}
 
 .area-chips{
   margin-top: 16px;
@@ -1092,11 +1109,6 @@ input:focus, select:focus, textarea:focus{
   gap: 10px;
   margin-top: 14px;
 }
-.form-note{
-  margin: 12px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-}
 
 .site-footer{
   padding: 40px 0 50px;
@@ -1305,8 +1317,6 @@ input:focus, select:focus, textarea:focus{
 .services-mini,
 .area-note p,
 .map-caption,
-.form-note,
-.gallery-more-note,
 .footer-small{
   color: var(--muted);
 }
@@ -1344,7 +1354,6 @@ input:focus, select:focus, textarea:focus{
 .service-card p,
 .area-note p,
 .services-cta p,
-.form-note{ color: var(--muted) !important; }
 .stat-top,
 .contact-label,
 .quote-kicker{ color: var(--muted-2) !important; }
