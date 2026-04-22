@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gallery • M&amp;G Landscaping</title>
+    <meta name="description" content="M&G Landscaping gallery — project photos and outdoor transformations." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="index.html#top" aria-label="M&G Landscaping home">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="brand-mark-leaf"></span>
+          </span>
+          <span class="brand-text">
+            <span class="brand-name">M&amp;G Landscaping</span>
+            <span class="brand-tag">Outdoor care • Clean design • Reliable crews</span>
+          </span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="index.html#about">About</a>
+          <a href="index.html#services">Services</a>
+          <a href="gallery.html" aria-current="page">Gallery</a>
+          <a href="index.html#areas">Service Area</a>
+          <a href="index.html#contact">Contact</a>
+          <button class="btn btn-primary btn-compact js-open-quote" type="button">Request a Quote</button>
+        </nav>
+      </div>
+      <div class="header-rule" aria-hidden="true"></div>
+    </header>
+
+    <main id="main">
+      <section class="section" id="gallery">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Full Gallery</h2>
+            <p>
+              Placeholder grid for now. When you’re ready, we can swap these for the client’s real photos (50+ is
+              totally fine here).
+            </p>
+          </div>
+
+          <div class="filter-row" role="group" aria-label="Filter gallery">
+            <button class="filter is-active" type="button" data-filter="all">All</button>
+            <button class="filter" type="button" data-filter="maintenance">Maintenance</button>
+            <button class="filter" type="button" data-filter="beds">Beds &amp; Mulch</button>
+            <button class="filter" type="button" data-filter="cleanup">Cleanup</button>
+            <button class="filter" type="button" data-filter="hardscape">Hardscape</button>
+          </div>
+
+          <div
+            class="gallery-grid"
+            id="galleryGrid"
+            data-gallery-source="js"
+            aria-label="Project gallery grid"
+          ></div>
+
+          <div class="gallery-more">
+            <button class="btn btn-ghost" id="loadMore" type="button">Load more</button>
+            <p class="gallery-more-note">Tip: filters still work after loading more.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <p class="footer-brand">M&amp;G Landscaping</p>
+          <p class="footer-small">Earthy design, professional work.</p>
+        </div>
+        <div class="footer-right">
+          <a class="footer-link" href="#top">Back to top</a>
+          <p class="footer-small">&copy; <span id="year"></span> M&amp;G Landscaping</p>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="quote-dialog" id="quoteDialog" aria-label="Request a quote dialog">
+      <form class="quote-panel" method="dialog" id="quoteForm">
+        <div class="quote-head">
+          <div>
+            <p class="quote-kicker">Request a quote</p>
+            <h2 class="quote-title">Tell us the basics</h2>
+          </div>
+          <button class="icon-btn" type="button" data-quote-close aria-label="Close quote form">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="quote-body">
+          <label>
+            <span>Name</span>
+            <input name="name" type="text" autocomplete="name" required placeholder="Your name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required placeholder="you@email.com" />
+          </label>
+          <label>
+            <span>Phone</span>
+            <input name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-0100" />
+          </label>
+          <label>
+            <span>Service</span>
+            <select name="service" required>
+              <option value="" selected disabled>Choose a service</option>
+              <option>Maintenance</option>
+              <option>Mulch / beds</option>
+              <option>Cleanup</option>
+              <option>Hardscape touch</option>
+              <option>Not sure</option>
+            </select>
+          </label>
+          <label>
+            <span>Notes</span>
+            <textarea name="message" rows="4" placeholder="Anything we should know?"></textarea>
+          </label>
+
+          <div class="quote-actions">
+            <button class="btn btn-primary" type="submit">Create Email</button>
+            <button class="btn btn-ghost" type="button" data-quote-close>Close</button>
+          </div>
+
+          <p class="form-note">No backend yet — we’ll open a pre-filled email so you can send it.</p>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-backdrop" data-lb-close="true"></div>
+      <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Gallery viewer">
+        <button class="icon-btn lightbox-close" type="button" data-lb-close="true" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <img class="lightbox-img" id="lightboxImg" alt="" />
+        <div class="lightbox-meta">
+          <p class="lightbox-title" id="lightboxTitle"></p>
+          <div class="lightbox-nav">
+            <button class="btn btn-ghost btn-compact" type="button" id="lbPrev">Prev</button>
+            <button class="btn btn-ghost btn-compact" type="button" id="lbNext">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="gallery-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
