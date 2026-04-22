@@ -63,26 +63,26 @@ const spotlight = {
   grow: {
     accent: ['#4ade80', '#16a34a'],
     title: 'Weekly lawn & bed care',
-    text: 'Clean edges, trimmed turf, neat beds, and consistent scheduling so your yard stays photo-ready.',
-    list: ['Weekly / bi-weekly options', 'Quick text updates', 'Simple, transparent pricing'],
+    text: 'Clean lines and dependable scheduling.',
+    list: ['Weekly / bi-weekly options', 'Quick text updates'],
   },
   cleanup: {
     accent: ['#fbbf24', '#d97706'],
     title: 'Seasonal cleanups',
-    text: 'Spring and fall resets that remove debris, sharpen lines, and prep beds for what comes next.',
-    list: ['Leaf + debris removal', 'Cutbacks where needed', 'Haul-away options'],
+    text: 'Spring and fall resets for a fresh look.',
+    list: ['Leaf + debris removal', 'Haul-away options'],
   },
   build: {
     accent: ['#b08968', '#8b5a2b'],
     title: 'Hardscape touches',
-    text: 'Small upgrades that make a big difference: borders, edging, and tidy path refreshes.',
-    list: ['Borders & edging', 'Small paver fixes', 'Gravel path refresh'],
+    text: 'Small upgrades that boost curb appeal.',
+    list: ['Borders & edging', 'Small paver fixes'],
   },
   winter: {
     accent: ['#7dd3fc', '#38bdf8'],
     title: 'Winter property prep',
-    text: 'Keep your property ready for cold weather with cutbacks, final cleanups, and a tidy finish.',
-    list: ['Final mow + trim', 'Bed cleanup', 'Storm-readiness checklist'],
+    text: 'Get ready for cold weather and cleanup.',
+    list: ['Final mow + trim', 'Bed cleanup'],
   },
 };
 
@@ -354,11 +354,22 @@ const initGallery = () => {
   const shouldRenderFromJs = grid.getAttribute('data-gallery-source') === 'js' && Array.isArray(window.GALLERY_ITEMS);
   let renderedCount = 0;
   const batchSize = 18;
+  let galleryItems = null;
+
+  const shuffleInPlace = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
 
   const renderBatch = (count) => {
     if (!shouldRenderFromJs) return;
-    const items = window.GALLERY_ITEMS;
-    const next = items.slice(renderedCount, renderedCount + count);
+    if (!galleryItems) {
+      galleryItems = shuffleInPlace(window.GALLERY_ITEMS.slice());
+    }
+    const next = galleryItems.slice(renderedCount, renderedCount + count);
     const newTiles = [];
 
     next.forEach((item) => {
@@ -370,7 +381,7 @@ const initGallery = () => {
 
       const img = document.createElement('img');
       img.loading = 'lazy';
-      img.src = String(item.src || '');
+      img.src = encodeURI(String(item.src || ''));
       img.alt = String(item.alt || item.title || 'Project photo');
 
       const meta = document.createElement('span');
@@ -395,7 +406,7 @@ const initGallery = () => {
     renderedCount += next.length;
     wireTileClicks(newTiles);
     applyFilter(activeFilter);
-    updateLoadMoreVisibility(renderedCount, items.length);
+    updateLoadMoreVisibility(renderedCount, galleryItems.length);
   };
 
   // Wire filters
