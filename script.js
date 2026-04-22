@@ -164,7 +164,7 @@ if (quoteDialog) {
 }
 
 const buildMailto = ({ name, email, phone, service, message }) => {
-  const to = 'hello@example.com';
+  const to = 'goyan_cc@hotmail.com';
   const subject = `Quote request — M&G Landscaping (${service || 'General'})`;
   const lines = [
     'Hi M&G Landscaping,',
@@ -356,18 +356,11 @@ const initGallery = () => {
   const batchSize = 18;
   let galleryItems = null;
 
-  const shuffleInPlace = (arr) => {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  };
-
   const renderBatch = (count) => {
     if (!shouldRenderFromJs) return;
     if (!galleryItems) {
-      galleryItems = shuffleInPlace(window.GALLERY_ITEMS.slice());
+      // Keep the original order (client-provided).
+      galleryItems = window.GALLERY_ITEMS.slice();
     }
     const next = galleryItems.slice(renderedCount, renderedCount + count);
     const newTiles = [];
@@ -384,21 +377,7 @@ const initGallery = () => {
       img.src = encodeURI(String(item.src || ''));
       img.alt = String(item.alt || item.title || 'Project photo');
 
-      const meta = document.createElement('span');
-      meta.className = 'gallery-tile-meta';
-
-      const t = document.createElement('span');
-      t.className = 'gallery-tile-title';
-      t.textContent = String(item.title || 'Project photo');
-
-      const tag = document.createElement('span');
-      tag.className = 'gallery-tile-tag';
-      tag.textContent = Array.isArray(item.tags) && item.tags.length ? String(item.tags[0]) : 'Project';
-
-      meta.appendChild(t);
-      meta.appendChild(tag);
       btn.appendChild(img);
-      btn.appendChild(meta);
       grid.appendChild(btn);
       newTiles.push(btn);
     });
