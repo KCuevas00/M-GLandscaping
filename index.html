@@ -39,7 +39,6 @@
         </button>
 
         <nav class="site-nav" id="site-nav" aria-label="Primary">
-
           <a href="#services">Services</a>
           <a href="gallery.html">Gallery</a>
           <a href="#areas">Service Area</a>
@@ -144,37 +143,6 @@
           </div>
         </div>
       </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <section class="section section-alt" id="services">
         <div class="container">
@@ -305,35 +273,37 @@
 
       <section class="section section-alt" id="areas">
         <div class="container split">
-          <div class="reveal-on-scroll areas-panel">
-            <div class="section-heading">
-              <h2>Service Area</h2>
-              <p>Based in DeKalb &mdash; serving surrounding areas.</p>
+          <div class="areas-panel reveal-on-scroll">
+            <div>
+              <div class="section-heading">
+                <h2>Service Area</h2>
+                <p>Based in DeKalb &mdash; serving surrounding areas.</p>
+              </div>
+
+              <div class="area-chips" aria-label="Example service cities">
+                <span>DeKalb</span>
+                <span>Sycamore</span>
+                <span>Malta</span>
+                <span>Cortland</span>
+                <span>Aurora</span>
+              </div>
+
+              <div class="area-note">
+                <h3>Outside these areas?</h3>
+                <p>Send your address anyway &mdash; we may be able to fit you into the route.</p>
+                <button class="btn btn-primary js-open-quote" type="button">Check availability</button>
+              </div>
             </div>
 
-            <div class="area-chips" aria-label="Example service cities">
-              <span>DeKalb</span>
-              <span>Sycamore</span>
-              <span>Malta</span>
-              <span>Cortland</span>
-              <span>Aurora</span>
-            </div>
-
-            <div class="area-note">
-              <h3>Outside these areas?</h3>
-              <p>Send your address anyway &mdash; we may be able to fit you into the route.</p>
-              <button class="btn btn-primary js-open-quote" type="button">Check availability</button>
-            </div>
-          </div>
-
-          <div class="map-shell reveal-on-scroll">
-            <div class="map-card">
-              <iframe
-                title="M&G Landscaping — DeKalb, IL"
-                src="https://www.google.com/maps?q=DeKalb%2C%20IL&output=embed"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+            <div class="map-shell">
+              <div class="map-card">
+                <iframe
+                  title="M&G Landscaping — DeKalb, IL"
+                  src="https://www.google.com/maps?q=DeKalb%2C%20IL&output=embed"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
@@ -341,42 +311,28 @@
 
       <section class="section" id="contact">
         <div class="container split">
-          <div class="reveal-on-scroll">
-          <div class="section-heading">
-            <h2>Contact</h2>
-              <p>Call or text for a free estimate &mdash; or send a message.</p>
-          </div>
+          <div class="contact-info-block reveal-on-scroll">
+            <div class="contact-watermark" aria-hidden="true">
+              <img src="MGL%20Photos/Logo.jpg" alt="" />
+            </div>
+            <div class="section-heading">
+              <h2 class="contact-heading">Contact M&G Landscaping Today for an Estimate</h2>
+              <p class="contact-copy">Call or text for a free estimate &mdash; or send a message below.</p>
+            </div>
+            <button class="btn btn-primary js-open-quote" type="button">Get Your Free Estimate</button>
 
-            <div class="contact-card-wrap" aria-label="Contact details">
-              <div class="contact-watermark" aria-hidden="true">
-                <img src="MGL%20Photos/Logo.jpg" alt="" />
+            <div class="contact-details-mini">
+              <div class="contact-item">
+                <p class="contact-label">Phone</p>
+                <a class="contact-link" href="tel:8157933368">(815) 793-3368</a>
               </div>
-
-              <div class="contact-cards">
-                <div class="contact-card">
-                  <div class="contact-card-main">
-                    <p class="contact-label">Phone</p>
-                    <p class="contact-value">
-                      <a class="contact-link" href="tel:8157933368">(815) 793-3368</a>
-                    </p>
-                  </div>
-                  <button class="copy-btn js-copy" type="button" data-copy="8157933368">copy</button>
-                </div>
-
-                <div class="contact-card">
-                  <div class="contact-card-main">
-                    <p class="contact-label">Email</p>
-                    <p class="contact-value">
-                      <a class="contact-link" href="mailto:goyan_cc@hotmail.com">goyan_cc@hotmail.com</a>
-                    </p>
-                  </div>
-                  <button class="copy-btn js-copy" type="button" data-copy="goyan_cc@hotmail.com">copy</button>
-                </div>
-
-                <div class="contact-card">
-                  <p class="contact-label">Address</p>
-                  <p class="contact-value">1119 N 1st St, DeKalb, IL 60115</p>
-                </div>
+              <div class="contact-item">
+                <p class="contact-label">Email</p>
+                <a class="contact-link" href="mailto:goyan_cc@hotmail.com">goyan_cc@hotmail.com</a>
+              </div>
+              <div class="contact-item">
+                <p class="contact-label">Address</p>
+                <p class="contact-value">1119 N 1st St, DeKalb, IL 60115</p>
               </div>
             </div>
           </div>
@@ -418,10 +374,9 @@
 
               <div class="form-actions">
                 <button class="btn btn-primary" type="submit">Create Email</button>
-                <button class="btn btn-ghost js-open-quote" type="button">Or request a quote</button>
               </div>
               <p class="form-note">
-                This form is a placeholder: it opens your email app with a pre-filled message (no backend required).
+                This form opens your email app with a pre-filled message.
               </p>
             </form>
           </div>
