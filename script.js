@@ -1,6 +1,28 @@
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+// Hero background image rotation
+const heroSection = $('.hero');
+if (heroSection) {
+  const backgroundImages = [
+    "url('MGL%20Photos/PHOTO-2026-04-21-15-30-34.jpg')",
+    "url('MGL%20Photos/PHOTO-2026-04-21-15-30-33%208.jpg')",
+    "url('MGL%20Photos/PHOTO-2026-04-21-15-30-35%205.jpg')",
+    "url('MGL%20Photos/PHOTO-2026-04-21-15-30-36.jpg')",
+    "url('MGL%20Photos/PHOTO-2026-04-21-15-30-38.jpg')"
+  ];
+  
+  let currentImageIndex = 0;
+  
+  const rotateHeroBackground = () => {
+    currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+    heroSection.style.setProperty('--hero-photo', backgroundImages[currentImageIndex]);
+  };
+  
+  // Rotate every 8 seconds
+  setInterval(rotateHeroBackground, 8000);
+}
+
 const toastEl = $('#toast');
 let toastTimer = null;
 const toast = (message) => {
@@ -426,5 +448,18 @@ const initGallery = () => {
     }
   });
 };
+
+const progressBar = document.getElementById('heroProgressBar');
+
+let progress = 0;
+
+setInterval(() => {
+  progress += 1.25;
+  if (progress >= 100) progress = 0;
+
+  if (progressBar) {
+    progressBar.style.width = progress + "%";
+  }
+}, 100);
 
 initGallery();
