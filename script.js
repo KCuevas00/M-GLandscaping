@@ -451,15 +451,23 @@ const initGallery = () => {
 
 const progressBar = document.getElementById('heroProgressBar');
 
-let progress = 0;
+const HERO_DURATION = 8000;
 
-setInterval(() => {
-  progress += 1.25;
-  if (progress >= 100) progress = 0;
+function animateProgressBar() {
+  if (!progressBar) return;
 
-  if (progressBar) {
-    progressBar.style.width = progress + "%";
-  }
-}, 100);
+  progressBar.style.transition = 'none';
+  progressBar.style.width = '0%';
 
-initGallery();
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      progressBar.style.transition = `width ${HERO_DURATION}ms linear`;
+      progressBar.style.width = '100%';
+    });
+  });
+}
+
+if (progressBar) {
+  animateProgressBar();
+  setInterval(animateProgressBar, HERO_DURATION);
+}

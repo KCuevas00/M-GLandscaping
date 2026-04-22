@@ -1394,11 +1394,11 @@ input, select, textarea{
 
 .hero-progress {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  background: rgba(255,255,255,0.15);
+  height: 3px;
+  background: rgba(255,255,255,0.10);
   z-index: 5;
 }
 
@@ -1406,6 +1406,7 @@ input, select, textarea{
   height: 100%;
   width: 0%;
   background: var(--leaf);
+  box-shadow: 0 0 12px rgba(74,222,128,0.6);
 }
 
 .contact-label {
