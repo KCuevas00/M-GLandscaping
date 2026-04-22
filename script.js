@@ -84,27 +84,47 @@ if ('IntersectionObserver' in window && revealEls.length) {
 const spotlight = {
   grow: {
     accent: ['#4ade80', '#16a34a'],
-    title: 'Weekly lawn & bed care',
-    text: 'Clean lines and dependable scheduling.',
-    list: ['Weekly / bi-weekly options', 'Quick text updates'],
+    title: 'Full-season lawn care',
+    text: 'Keep your property clean, trimmed, and healthy all season long.',
+    list: [
+      'Weekly / bi-weekly mowing',
+      'Edging & trimming',
+      'Pruning & upkeep',
+      'Consistent scheduling'
+    ],
   },
   cleanup: {
     accent: ['#fbbf24', '#d97706'],
-    title: 'Seasonal cleanups',
-    text: 'Spring and fall resets for a fresh look.',
-    list: ['Leaf + debris removal', 'Haul-away options'],
+    title: 'Seasonal cleanups done right',
+    text: 'We reset your yard after storms, fall, and messy seasons.',
+    list: [
+      'Leaf + debris removal',
+      'Junk haul-off',
+      'Gutter cleaning',
+      'Full property reset'
+    ],
   },
-  build: {
-    accent: ['#b08968', '#8b5a2b'],
-    title: 'Hardscape touches',
-    text: 'Small upgrades that boost curb appeal.',
-    list: ['Borders & edging', 'Small paver fixes'],
-  },
-  winter: {
+      build: {
+      accent: ['#b08968', '#8b5a2b'],
+      title: 'Hardscape & outdoor upgrades',
+      text: 'We build and improve outdoor spaces that last.',
+      list: [
+        'Patios',
+        'Retaining walls',
+        'Paver work',
+        'New bed installs'
+      ],
+    },
+    winter: {
     accent: ['#7dd3fc', '#38bdf8'],
-    title: 'Winter property prep',
-    text: 'Get ready for cold weather and cleanup.',
-    list: ['Final mow + trim', 'Bed cleanup'],
+    title: 'Snow & winter protection',
+    text: 'Reliable winter service so your property stays safe.',
+    list: [
+      'Snow removal',
+      'Salt / ice control',
+      'Final fall cleanup',
+      'Property prep'
+    ],
   },
 };
 
