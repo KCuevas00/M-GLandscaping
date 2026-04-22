@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M&amp;G Landscaping</title>
+    <meta
+      name="description"
+      content="M&G Landscaping — outdoor spaces designed for everyday life. Lawn care, cleanups, planting, hardscapes, and more."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="M&G Landscaping home">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="brand-mark-leaf"></span>
+          </span>
+          <span class="brand-text">
+            <span class="brand-name">M&amp;G Landscaping</span>
+            <span class="brand-tag">Outdoor care • Clean design • Reliable crews</span>
+          </span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="#areas">Service Area</a>
+          <a href="#contact">Contact</a>
+          <button class="btn btn-primary btn-compact js-open-quote" type="button">Request a Quote</button>
+        </nav>
+      </div>
+      <div class="header-rule" aria-hidden="true"></div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-label="Hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              <span class="pill">Locally owned</span>
+              <span class="muted">•</span>
+              <span class="muted">Free estimates</span>
+              <span class="muted">•</span>
+              <span class="muted">Insured crews</span>
+            </p>
+            <h1 class="hero-title">
+              Landscapes that feel effortless,
+              <span class="hero-title-accent">season after season.</span>
+            </h1>
+            <p class="hero-subtitle">
+              From weekly maintenance to fresh installs, M&amp;G keeps your property crisp, healthy, and welcoming —
+              without the hassle.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary js-open-quote" type="button">Get a Free Quote</button>
+              <a class="btn btn-ghost" href="#services">Explore services</a>
+            </div>
+
+            <div class="hero-spotlight" aria-label="Service spotlight">
+              <p class="hero-spotlight-label">Spotlight</p>
+              <div class="chip-row" role="tablist" aria-label="Choose a season">
+                <button class="chip is-active" type="button" role="tab" aria-selected="true" data-season="grow">
+                  Growing season
+                </button>
+                <button class="chip" type="button" role="tab" aria-selected="false" data-season="cleanup">
+                  Cleanup
+                </button>
+                <button class="chip" type="button" role="tab" aria-selected="false" data-season="build">
+                  Hardscapes
+                </button>
+                <button class="chip" type="button" role="tab" aria-selected="false" data-season="winter">
+                  Winter prep
+                </button>
+              </div>
+              <div class="spotlight-card" id="spotlightCard">
+                <h2 class="spotlight-title" id="spotlightTitle">Weekly lawn &amp; bed care</h2>
+                <p class="spotlight-text" id="spotlightText">
+                  Clean edges, trimmed turf, neat beds, and consistent scheduling so your yard stays photo-ready.
+                </p>
+                <ul class="spotlight-list" id="spotlightList">
+                  <li>Weekly / bi-weekly options</li>
+                  <li>Quick text updates</li>
+                  <li>Simple, transparent pricing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-media">
+            <div class="media-stack">
+              <figure class="media-card reveal-on-scroll">
+                <div class="ph-image ph-image-tall" role="img" aria-label="Placeholder landscaping photo"></div>
+                <figcaption>Placeholder image — featured project</figcaption>
+              </figure>
+              <figure class="media-card media-card-float reveal-on-scroll" style="--float-delay: 0.1s">
+                <div class="ph-image ph-image-wide" role="img" aria-label="Placeholder landscaping detail photo"></div>
+                <figcaption>Before / after results</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container split">
+          <div class="reveal-on-scroll">
+            <div class="section-heading">
+              <h2>Built for busy homeowners</h2>
+              <p>
+                M&amp;G Landscaping is a crew-first company: clear communication, clean work, and a plan you can trust.
+                We keep it simple — show up, do it right, and leave your property looking better than we found it.
+              </p>
+            </div>
+            <div class="stat-grid" aria-label="Company highlights">
+              <div class="stat">
+                <p class="stat-top">Quality-first</p>
+                <p class="stat-main">Detail-minded finishes</p>
+              </div>
+              <div class="stat">
+                <p class="stat-top">Responsive</p>
+                <p class="stat-main">Text-friendly scheduling</p>
+              </div>
+              <div class="stat">
+                <p class="stat-top">Consistent</p>
+                <p class="stat-main">Reliable weekly routes</p>
+              </div>
+              <div class="stat">
+                <p class="stat-top">Seasonal</p>
+                <p class="stat-main">Cleanups &amp; refreshes</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-media reveal-on-scroll">
+            <div class="about-photo">
+              <div class="ph-image ph-image-square" role="img" aria-label="Placeholder crew photo"></div>
+              <div class="about-badge">
+                <p class="about-badge-title">Free estimate</p>
+                <p class="about-badge-copy">Quick turnaround on most requests.</p>
+                <button class="btn btn-primary btn-compact js-open-quote" type="button">Request now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="services">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Services</h2>
+            <p>Pick a plan that fits your property — we’ll handle the rest.</p>
+          </div>
+
+          <div class="service-grid" aria-label="Service list">
+            <article class="service-card reveal-on-scroll">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21c-4.8-2.5-8-6.4-8-10.8C4 6.8 7 4 12 3c5 1 8 3.8 8 7.2 0 4.4-3.2 8.3-8 10.8z"/></svg>
+              </div>
+              <h3>Weekly Maintenance</h3>
+              <p>Mowing, edging, trimming, and bed touch-ups with a consistent schedule.</p>
+              <details class="service-details">
+                <summary>What’s included</summary>
+                <ul>
+                  <li>Mowing + edging</li>
+                  <li>String trimming</li>
+                  <li>Blow-off &amp; tidy finish</li>
+                </ul>
+              </details>
+            </article>
+
+            <article class="service-card reveal-on-scroll" style="--reveal-delay: 0.06s">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 18c4-3 7-9 8-14 3 4 4 8 8 10-6 2-12 2-16 4z"/></svg>
+              </div>
+              <h3>Mulch &amp; Bed Refresh</h3>
+              <p>Clean lines, fresh mulch, and a neat look that makes your home stand out.</p>
+              <details class="service-details">
+                <summary>Popular add-ons</summary>
+                <ul>
+                  <li>Bed edging / redefinition</li>
+                  <li>Weed barrier (optional)</li>
+                  <li>Seasonal color planting</li>
+                </ul>
+              </details>
+            </article>
+
+            <article class="service-card reveal-on-scroll" style="--reveal-delay: 0.12s">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 2c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10z"/></svg>
+              </div>
+              <h3>Seasonal Cleanups</h3>
+              <p>Spring and fall cleanups to reset beds, remove debris, and prep for the season.</p>
+              <details class="service-details">
+                <summary>Cleanup checklist</summary>
+                <ul>
+                  <li>Leaf + debris removal</li>
+                  <li>Cutbacks (where needed)</li>
+                  <li>Haul-away options</li>
+                </ul>
+              </details>
+            </article>
+
+            <article class="service-card reveal-on-scroll" style="--reveal-delay: 0.18s">
+              <div class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 17h16v2H4v-2zm2-3h12l-2-9H8l-2 9z"/></svg>
+              </div>
+              <h3>Hardscape Touches</h3>
+              <p>Small upgrades that boost curb appeal: borders, stepping stones, and refreshes.</p>
+              <details class="service-details">
+                <summary>Good for</summary>
+                <ul>
+                  <li>Garden borders &amp; edging</li>
+                  <li>Small paver repairs</li>
+                  <li>Gravel paths</li>
+                </ul>
+              </details>
+            </article>
+          </div>
+
+          <div class="services-cta reveal-on-scroll">
+            <div>
+              <h3>Not sure what you need?</h3>
+              <p>Tell us what you’re trying to solve. We’ll recommend a simple plan.</p>
+            </div>
+            <button class="btn btn-primary js-open-quote" type="button">Request a Quote</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="gallery">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Featured Work</h2>
+            <p>A quick preview — see the full gallery for more photos.</p>
+          </div>
+
+          <div class="gallery-grid" id="galleryGrid" aria-label="Featured project gallery grid">
+            <button class="gallery-tile" type="button" data-tags="maintenance" data-title="Weekly route finish">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Weekly route finish</span>
+                <span class="gallery-tile-tag">Maintenance</span>
+              </span>
+            </button>
+            <button class="gallery-tile" type="button" data-tags="beds" data-title="Fresh mulch + edging">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Fresh mulch + edging</span>
+                <span class="gallery-tile-tag">Beds &amp; Mulch</span>
+              </span>
+            </button>
+            <button class="gallery-tile" type="button" data-tags="cleanup" data-title="Season reset cleanup">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Season reset cleanup</span>
+                <span class="gallery-tile-tag">Cleanup</span>
+              </span>
+            </button>
+            <button class="gallery-tile" type="button" data-tags="hardscape" data-title="Border upgrade detail">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Border upgrade detail</span>
+                <span class="gallery-tile-tag">Hardscape</span>
+              </span>
+            </button>
+            <button class="gallery-tile" type="button" data-tags="beds" data-title="Planting refresh">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Planting refresh</span>
+                <span class="gallery-tile-tag">Beds &amp; Mulch</span>
+              </span>
+            </button>
+            <button class="gallery-tile" type="button" data-tags="maintenance" data-title="Clean lines &amp; edges">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Clean lines &amp; edges</span>
+                <span class="gallery-tile-tag">Maintenance</span>
+              </span>
+            </button>
+            <button class="gallery-tile" type="button" data-tags="cleanup" data-title="Leaf removal">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Leaf removal</span>
+                <span class="gallery-tile-tag">Cleanup</span>
+              </span>
+            </button>
+            <button class="gallery-tile" type="button" data-tags="hardscape" data-title="Walkway refresh">
+              <img src="https://placehold.co/900x700?text=Project+Photo" alt="Placeholder project photo" loading="lazy" />
+              <span class="gallery-tile-meta">
+                <span class="gallery-tile-title">Walkway refresh</span>
+                <span class="gallery-tile-tag">Hardscape</span>
+              </span>
+            </button>
+          </div>
+
+          <div class="gallery-home-cta">
+            <a class="btn btn-ghost" href="gallery.html">View Full Gallery</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="areas">
+        <div class="container split">
+          <div class="reveal-on-scroll">
+            <div class="section-heading">
+              <h2>Service Area</h2>
+              <p>Placeholder coverage — update with the real cities and radius for M&amp;G Landscaping.</p>
+            </div>
+
+            <div class="area-chips" aria-label="Example service cities">
+              <span>City A</span>
+              <span>City B</span>
+              <span>City C</span>
+              <span>City D</span>
+              <span>City E</span>
+            </div>
+
+            <div class="area-note">
+              <h3>Outside these areas?</h3>
+              <p>Send your address anyway — we may be able to fit you into the route.</p>
+              <button class="btn btn-primary js-open-quote" type="button">Check availability</button>
+            </div>
+          </div>
+
+          <div class="map-shell reveal-on-scroll">
+            <div class="map-card" role="img" aria-label="Placeholder service map">
+              <div class="map-grid" aria-hidden="true"></div>
+              <svg class="map-mark" viewBox="0 0 64 64" aria-hidden="true">
+                <path
+                  d="M32 58c-10-7-16-15-16-25C16 22 23 14 32 12c9 2 16 10 16 21 0 10-6 18-16 25z"
+                  fill="currentColor"
+                  opacity="0.9"
+                />
+                <circle cx="32" cy="32" r="5" fill="#0b1a12" opacity="0.55" />
+              </svg>
+              <p class="map-caption">Map placeholder (swap for a real embedded map later)</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="container split">
+          <div class="reveal-on-scroll">
+            <div class="section-heading">
+              <h2>Contact</h2>
+              <p>
+                Call, email, or send a message. Contact info is placeholder text for now — replace it before launch.
+              </p>
+            </div>
+
+            <div class="contact-cards" aria-label="Contact details">
+              <div class="contact-card">
+                <p class="contact-label">Phone</p>
+                <p class="contact-value">
+                  <a class="contact-link" href="tel:15555550100">(555) 555-0100</a>
+                </p>
+                <button class="btn btn-ghost btn-compact js-copy" type="button" data-copy="(555) 555-0100">
+                  Copy
+                </button>
+              </div>
+
+              <div class="contact-card">
+                <p class="contact-label">Email</p>
+                <p class="contact-value">
+                  <a class="contact-link" href="mailto:hello@example.com">hello@example.com</a>
+                </p>
+                <button class="btn btn-ghost btn-compact js-copy" type="button" data-copy="hello@example.com">
+                  Copy
+                </button>
+              </div>
+
+              <div class="contact-card">
+                <p class="contact-label">Address</p>
+                <p class="contact-value">123 Placeholder St, City, ST 00000</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-shell reveal-on-scroll">
+            <form class="contact-form" id="contactForm" action="#" method="post" novalidate>
+              <div class="form-row">
+                <label>
+                  <span>Name</span>
+                  <input name="name" type="text" autocomplete="name" required placeholder="Your name" />
+                </label>
+                <label>
+                  <span>Phone</span>
+                  <input name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-0100" />
+                </label>
+              </div>
+
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" autocomplete="email" required placeholder="you@email.com" />
+              </label>
+
+              <label>
+                <span>What can we help with?</span>
+                <select name="service" required>
+                  <option value="" selected disabled>Choose one</option>
+                  <option>Maintenance</option>
+                  <option>Mulch / beds</option>
+                  <option>Cleanup</option>
+                  <option>Hardscape touch</option>
+                  <option>Not sure</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Message</span>
+                <textarea name="message" rows="5" required placeholder="Tell us about your project..."></textarea>
+              </label>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Create Email</button>
+                <button class="btn btn-ghost js-open-quote" type="button">Or request a quote</button>
+              </div>
+              <p class="form-note">
+                This form is a placeholder: it opens your email app with a pre-filled message (no backend required).
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <p class="footer-brand">M&amp;G Landscaping</p>
+          <p class="footer-small">Earthy design, professional work.</p>
+        </div>
+        <div class="footer-right">
+          <a class="footer-link" href="#top">Back to top</a>
+          <p class="footer-small">&copy; <span id="year"></span> M&amp;G Landscaping</p>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="quote-dialog" id="quoteDialog" aria-label="Request a quote dialog">
+      <form class="quote-panel" method="dialog" id="quoteForm">
+        <div class="quote-head">
+          <div>
+            <p class="quote-kicker">Request a quote</p>
+            <h2 class="quote-title">Tell us the basics</h2>
+          </div>
+          <button class="icon-btn" type="button" data-quote-close aria-label="Close quote form">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="quote-body">
+          <label>
+            <span>Name</span>
+            <input name="name" type="text" autocomplete="name" required placeholder="Your name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" required placeholder="you@email.com" />
+          </label>
+          <label>
+            <span>Phone</span>
+            <input name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-0100" />
+          </label>
+          <label>
+            <span>Service</span>
+            <select name="service" required>
+              <option value="" selected disabled>Choose a service</option>
+              <option>Maintenance</option>
+              <option>Mulch / beds</option>
+              <option>Cleanup</option>
+              <option>Hardscape touch</option>
+              <option>Not sure</option>
+            </select>
+          </label>
+          <label>
+            <span>Notes</span>
+            <textarea name="message" rows="4" placeholder="Anything we should know?"></textarea>
+          </label>
+
+          <div class="quote-actions">
+            <button class="btn btn-primary" type="submit">Create Email</button>
+            <button class="btn btn-ghost" type="button" data-quote-close>Close</button>
+          </div>
+
+          <p class="form-note">No backend yet — we’ll open a pre-filled email so you can send it.</p>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-backdrop" data-lb-close="true"></div>
+      <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Gallery viewer">
+        <button class="icon-btn lightbox-close" type="button" data-lb-close="true" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <img class="lightbox-img" id="lightboxImg" alt="" />
+        <div class="lightbox-meta">
+          <p class="lightbox-title" id="lightboxTitle"></p>
+          <div class="lightbox-nav">
+            <button class="btn btn-ghost btn-compact" type="button" id="lbPrev">Prev</button>
+            <button class="btn btn-ghost btn-compact" type="button" id="lbNext">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
