@@ -1378,3 +1378,9 @@ input, select, textarea{
   width: 0%;
   background: var(--leaf);
 }
+
+.contact-label {
+  color: rgba(74, 222, 128, 0.9) !important;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
