@@ -581,12 +581,22 @@ a{ color: inherit; }
   gap: 14px;
 }
 .service-card{
+  transition: all 0.25s ease;
   border-radius: var(--radius-lg);
   border: 1px solid var(--stroke);
   background: var(--surface);
   padding: 16px;
   box-shadow: var(--shadow);
 }
+
+.service-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(74,222,128,0.2),
+    0 0 40px rgba(74,222,128,0.25),
+    0 20px 60px rgba(0,0,0,0.35);
+  transform: translateY(-4px);
+}
+
 .service-icon{
   width: 42px;
   height: 42px;
@@ -781,6 +791,25 @@ a{ color: inherit; }
 }
 #areas {
   position: relative;
+  overflow: hidden;
+}
+
+/* service area background gradient */ 
+#areas::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(22, 143, 38, 0.384),
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+#areas .container {
+  position: relative;
+  z-index: 1;
 }
 
 #areas .section-heading {
