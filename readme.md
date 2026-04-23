@@ -4,6 +4,10 @@ change icons for services
 
 form popup stopped working
 
+back to top button doesnt work.
+
+full gallery photo scroll isnt showing the full gallery on next or prev button press
+
 Project TODO – M&G Landscaping Website
 This document outlines pending tasks and improvements for the M&G Landscaping website. The goal is to ensure the site is clean, consistent, responsive, and optimized for performance and conversions.
 Code / Structure Fixes
