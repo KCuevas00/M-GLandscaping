@@ -461,25 +461,24 @@ a{ color: inherit; }
 }
 
 .hero .logo-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 68px;
-  height: 68px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(74,222,128,0.12);
-  box-shadow: 0 8px 22px rgba(11,26,18,0.12), 0 0 18px rgba(74,222,128,0.06);
-  z-index: 4;
+  /* header placement inside the right column */
+  position: static;
+  display: block;
+  width: 84px;
+  margin: 0 0 14px 0; /* spacing between logo and spotlight card */
   padding: 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(74,222,128,0.10);
+  box-shadow: 0 8px 18px rgba(11,26,18,0.08), 0 0 20px rgba(74,222,128,0.04);
+  align-self: center; /* center within the column */
 }
 
 .hero .logo-badge .hero-logo{
+  display: block;
   width: 100%;
   height: auto;
-  max-width: 52px;
+  max-width: 68px;
   border-radius: 8px;
   box-shadow: none;
   border: none;
@@ -500,7 +499,7 @@ a{ color: inherit; }
   .hero .hero-spotlight {
     order: 2;
   }
-  .hero .logo-badge { top: 10px; right: 10px; width: 56px; height: 56px; }
+  .hero .logo-badge { width: 56px; margin-bottom: 12px; }
   .hero .logo-badge .hero-logo{ max-width: 44px; }
 }
 
@@ -1178,17 +1177,21 @@ a{ color: inherit; }
 /* subtle identity layer behind the contact left panel */
 .contact-cta{
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 .contact-cta::before{
+  /* centered subtle logo watermark */
   content: "";
   position: absolute;
-  inset: -12% -6% -12% 0%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 10% 10%, rgba(74,222,128,0.07), transparent 30%);
-  filter: blur(8px) saturate(0.9);
-  opacity: 0.95;
+  background-image: url("MGL%20Photos/Logo.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 55% auto;
+  opacity: 0.055;
+  filter: grayscale(1) contrast(0.95);
 }
 .contact-cta > *{ position: relative; z-index: 1; }
 
