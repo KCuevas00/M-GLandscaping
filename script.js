@@ -236,9 +236,109 @@ if (heroSection) {
 }
 
 /* =========================
-   LIGHTBOX / QUOTE / GALLERY
-   (UNCHANGED BELOW — your code)
+   GALLERY RENDERING
 ========================= */
 
-// keep everything else EXACTLY as you had it
-// (quote, gallery, copy, etc. unchanged)
+const galleryGrid = $('#galleryGrid');
+const loadMoreBtn = $('#loadMore');
+const lightbox = $('#lightbox');
+const lightboxImg = $('#lightboxImg');
+const lightboxTitle = $('#lightboxTitle');
+
+let galleryIndex = 0;
+const BATCH_SIZE = 12;
+let currentItems = window.GALLERY_ITEMS || [];
+
+function createTile(item, index) {
+  const btn = document.createElement('button');
+  btn.className = 'gallery-tile';
+  btn.type = 'button';
+  btn.dataset.index = index;
+
+  const img = document.createElement('img');
+  img.src = item.src;
+  img.alt = item.alt || '';
+  img.loading = 'lazy';
+
+  btn.appendChild(img);
+
+  btn.addEventListener('click', () => openLightbox(index));
+
+  return btn;
+}
+
+function renderBatch() {
+  if (!galleryGrid) return;
+
+  const slice = currentItems.slice(galleryIndex, galleryIndex + BATCH_SIZE);
+
+  slice.forEach((item, i) => {
+    const realIndex = galleryIndex + i;
+    galleryGrid.appendChild(createTile(item, realIndex));
+  });
+
+  galleryIndex += slice.length;
+
+  if (galleryIndex >= currentItems.length && loadMoreBtn) {
+    loadMoreBtn.style.display = 'none';
+  }
+}
+
+function openLightbox(index) {
+  const item = currentItems[index];
+  if (!item || !lightbox) return;
+
+  lightbox.classList.add('is-open');
+  lightbox.setAttribute('aria-hidden', 'false');
+
+  if (lightboxImg) lightboxImg.src = item.src;
+  if (lightboxTitle) lightboxTitle.textContent = item.title || '';
+}
+
+function closeLightbox() {
+  if (!lightbox) return;
+  lightbox.classList.remove('is-open');
+  lightbox.setAttribute('aria-hidden', 'true');
+}
+
+/* nav lightbox */
+const lbPrev = $('#lbPrev');
+const lbNext = $('#lbNext');
+
+function stepLightbox(dir) {
+  const currentSrc = lightboxImg?.src;
+  const currentIndex = currentItems.findIndex(i => currentSrc && currentSrc.includes(i.src));
+
+  let next = currentIndex + dir;
+  if (next < 0) next = currentItems.length - 1;
+  if (next >= currentItems.length) next = 0;
+
+  openLightbox(next);
+}
+
+/* events */
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', renderBatch);
+}
+
+if (lbPrev) lbPrev.addEventListener('click', () => stepLightbox(-1));
+if (lbNext) lbNext.addEventListener('click', () => stepLightbox(1));
+
+$$('[data-lb-close="true"]').forEach(el => {
+  el.addEventListener('click', closeLightbox);
+});
+
+/* ESC + arrows */
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeLightbox();
+
+  if (lightbox?.classList.contains('is-open')) {
+    if (event.key === 'ArrowLeft') stepLightbox(-1);
+    if (event.key === 'ArrowRight') stepLightbox(1);
+  }
+});
+
+/* INIT */
+if (galleryGrid) {
+  renderBatch();
+}
