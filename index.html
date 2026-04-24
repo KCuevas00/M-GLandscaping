@@ -461,12 +461,30 @@ href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;
             </select>
           </label>
           <label>
+            <span>Address</span>
+            <input name="address" type="text" placeholder="Street address (optional)" />
+          </label>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <label style="flex:2">
+              <span>City</span>
+              <input name="city" type="text" placeholder="City" />
+            </label>
+            <label style="flex:1">
+              <span>State</span>
+              <input name="state" type="text" placeholder="State" />
+            </label>
+            <label style="flex:1">
+              <span>Zip</span>
+              <input name="zip" type="text" placeholder="ZIP" />
+            </label>
+          </div>
+          <label>
             <span>Notes</span>
             <textarea name="message" rows="4" placeholder="Anything we should know?"></textarea>
           </label>
 
           <div class="quote-actions">
-            <button class="btn btn-primary" type="submit">Create Email</button>
+            <button class="btn btn-primary" type="submit">Send Request</button>
             <button class="btn btn-ghost" type="button" data-quote-close>Close</button>
           </div>
 
@@ -492,6 +510,11 @@ href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      emailjs.init("P9egqM2VUiaUyiPLt");
+    </script>
 
     <script src="script.js"></script>
   </body>

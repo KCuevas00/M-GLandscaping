@@ -394,50 +394,139 @@ if (galleryGrid && (!currentItems || !currentItems.length)) {
 }
 
 /* =========================
-   QUOTE DIALOG (open/close handlers)
+   QUOTE DIALOG (open/close handlers + EmailJS integration)
+   - Centralize EmailJS submission via sendQuoteFormEmail(formData)
+   - Remove any mailto fallback: submissions must go through EmailJS only
+   - Provide openQuoteForm() to unify CTA handlers
 ========================= */
 const quoteDialog = $('#quoteDialog');
 const quoteForm = $('#quoteForm');
 const openQuoteEls = $$('.js-open-quote') || [];
 const closeQuoteEls = $$('[data-quote-close]') || [];
 
-if (quoteDialog && openQuoteEls.length) {
-  openQuoteEls.forEach((el) => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      try {
-        if (typeof quoteDialog.showModal === 'function') quoteDialog.showModal();
-        else quoteDialog.classList.add('is-open');
-      } catch (err) {
-        quoteDialog.classList.add('is-open');
-      }
-    });
-  });
-
-  closeQuoteEls.forEach((el) => {
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      try { if (typeof quoteDialog.close === 'function') quoteDialog.close(); else quoteDialog.classList.remove('is-open'); } catch (err) { quoteDialog.classList.remove('is-open'); }
-    });
-  });
+// helper to open the existing dialog/form in a single place
+function openQuoteForm() {
+  if (!quoteDialog) return;
+  try {
+    if (typeof quoteDialog.showModal === 'function') quoteDialog.showModal();
+    else quoteDialog.classList.add('is-open');
+  } catch (err) {
+    quoteDialog.classList.add('is-open');
+  }
 }
 
-// basic submit behavior: open mail client with prefilled content (no backend)
-if (quoteForm) {
-  quoteForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    const name = data.get('name') || '';
-    const email = data.get('email') || '';
-    const phone = data.get('phone') || '';
-    const service = data.get('service') || '';
-    const message = data.get('message') || '';
-
-    const subject = encodeURIComponent(`Quote request: ${service} - ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\n\nNotes:\n${message}`);
-    window.location.href = `mailto:goyan_cc@hotmail.com?subject=${subject}&body=${body}`;
+// attach open handlers to known CTA selectors (centralized)
+const CTA_SELECTORS = ['.js-open-quote', '[data-open-quote]', '.request-quote', 'a.request-quote'];
+CTA_SELECTORS.forEach((sel) => {
+  document.querySelectorAll(sel).forEach((el) => {
+    // avoid duplicate listeners
+    if (el.dataset.quoteHandled) return;
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openQuoteForm();
+    });
+    el.dataset.quoteHandled = '1';
   });
+});
+
+// close buttons
+closeQuoteEls.forEach((el) => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    try { if (typeof quoteDialog.close === 'function') quoteDialog.close(); else quoteDialog.classList.remove('is-open'); } catch (err) { quoteDialog.classList.remove('is-open'); }
+  });
+});
+
+// Centralized EmailJS sender function required by the migration
+async function sendQuoteFormEmail(formData) {
+  // Accept either a FormData instance or a plain object
+  const get = (k) => (formData instanceof FormData ? (formData.get(k) || '') : (formData[k] || '') || '');
+
+  const name = get('name');
+  const email = get('email');
+  const phone = get('phone');
+  const service = get('service');
+  const address = get('address');
+  const city = get('city');
+  const state = get('state');
+  const zip = get('zip');
+  const message = get('message');
+  const time = new Date().toLocaleString();
+
+  const templateParamsBase = { name, email, phone, service, address, city, state, zip, message, time };
+
+  const SERVICE_ID = 'service_je5l433';
+  const TEMPLATE_ADMIN = 'template_fxd7yaz';
+  const TEMPLATE_AUTO = 'template_9cihges';
+
+  // helper to send via SDK or REST API
+  const emailjsSend = async (serviceId, templateId, params) => {
+    // Deterministic: assume emailjs is loaded and initialized before script.js runs
+    console.log('Attempting EmailJS SDK send', { serviceId, templateId, params });
+    return emailjs.send(serviceId, templateId, params);
+  };
+
+  // prepare params
+  const adminParams = Object.assign({}, templateParamsBase, { to_email: 'mglandscaping@gmail.com' });
+  const autoParams = Object.assign({}, templateParamsBase, { to_email: email });
+
+  // DEBUG: log payload and EmailJS presence
+  try {
+    console.log('Form Data:', { name, email, phone, service, address, city, state, zip, message, time });
+
+    // send both emails via SDK only
+    const results = await Promise.all([
+      emailjsSend(SERVICE_ID, TEMPLATE_ADMIN, templateParamsBase),
+      emailjsSend(SERVICE_ID, TEMPLATE_AUTO, templateParamsBase),
+    ]);
+
+    console.log('EmailJS responses:', results);
+    return results;
+  } catch (err) {
+    // Bubble up with detailed info
+    console.error('EmailJS FULL ERROR:', err);
+    throw err;
+  }
+}
+
+// submit handler: delegates to sendQuoteFormEmail and enforces locking and UI behavior
+if (quoteForm) {
+  // ensure we only bind once
+  if (!quoteForm.dataset.submitHandled) {
+    quoteForm.addEventListener('submit', async (e) => {
+      console.log('Form submit triggered');
+      e.preventDefault();
+      const form = e.target;
+
+      if (form.dataset.sending === '1') return;
+      form.dataset.sending = '1';
+
+      const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      const data = new FormData(form);
+
+      const maybeToast = (msg) => { try { if (typeof toast === 'function') toast(msg); } catch (err) { /* silent */ } };
+
+      try {
+        const resp = await sendQuoteFormEmail(data);
+        console.log('Email sent successfully', resp);
+        console.log('EmailJS success');
+        maybeToast('Quote request sent — thank you');
+        try { if (quoteDialog) { if (typeof quoteDialog.close === 'function') quoteDialog.close(); else quoteDialog.classList.remove('is-open'); } } catch (err) { /* ignore */ }
+      } catch (err) {
+        console.error('EmailJS FULL ERROR:', err);
+        // if the error has a response or text, log it
+        try { if (err && err.text) console.error('Error response text:', err.text); } catch (e) { /* ignore */ }
+        maybeToast('Failed to send quote. Please try again.');
+        try { alert('Failed to send. Check console for details.'); } catch (e) { /* ignore */ }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        delete form.dataset.sending;
+      }
+    });
+    quoteForm.dataset.submitHandled = '1';
+  }
 }
 
 /* Universal lightbox removed — using single, consolidated lightbox controller above */
