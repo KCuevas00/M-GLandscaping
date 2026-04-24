@@ -1720,3 +1720,11 @@ input, select, textarea{
   .contact-cta { order: 1; }
   .contact-info { min-height: auto; }
 }
+
+/* removes glow from hero quote button */
+.hero .btn-primary {
+  box-shadow: none !important;
+}
+.hero .btn-primary:hover {
+  box-shadow: none !important;
+}
