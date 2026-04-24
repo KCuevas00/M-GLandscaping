@@ -150,8 +150,14 @@ const setSpotlight = (key) => {
   const next = spotlight[key];
   if (!next) return;
 
-  document.documentElement.style.setProperty('--accent', next.accent[0]);
-  document.documentElement.style.setProperty('--accent-2', next.accent[1] || next.accent[0]);
+  // Scope accent variables to the hero section to avoid leaking styles site-wide
+  if (heroSection) {
+    heroSection.style.setProperty('--accent', next.accent[0]);
+    heroSection.style.setProperty('--accent-2', next.accent[1] || next.accent[0]);
+  } else {
+    document.documentElement.style.setProperty('--accent', next.accent[0]);
+    document.documentElement.style.setProperty('--accent-2', next.accent[1] || next.accent[0]);
+  }
 
   spotlightChips.forEach((chip) => {
     const isActive = chip.dataset.season === key;
@@ -254,6 +260,8 @@ function createTile(item, index) {
   btn.className = 'gallery-tile';
   btn.type = 'button';
   btn.dataset.index = index;
+  // store the original src on the element for reliable matching later
+  btn.dataset.src = item.src;
 
   const img = document.createElement('img');
   img.src = item.src;
@@ -290,8 +298,9 @@ function openLightbox(index) {
 
   lightbox.classList.add('is-open');
   lightbox.setAttribute('aria-hidden', 'false');
-
-  if (lightboxImg) lightboxImg.src = item.src;
+  // Resolve and set an absolute URL for the lightbox image so comparisons are consistent
+  const resolved = new URL(item.src, location.href).href;
+  if (lightboxImg) lightboxImg.src = resolved;
   if (lightboxTitle) lightboxTitle.textContent = item.title || '';
 }
 
@@ -307,9 +316,16 @@ const lbNext = $('#lbNext');
 
 function stepLightbox(dir) {
   const currentSrc = lightboxImg?.src;
-  const currentIndex = currentItems.findIndex(i => currentSrc && currentSrc.includes(i.src));
+  // Find current index by comparing resolved hrefs to avoid percent-encoding mismatches
+  const currentIndex = currentItems.findIndex(i => {
+    try {
+      return currentSrc && new URL(i.src, location.href).href === currentSrc;
+    } catch (e) {
+      return false;
+    }
+  });
 
-  let next = currentIndex + dir;
+  let next = (currentIndex === -1 ? 0 : currentIndex) + dir;
   if (next < 0) next = currentItems.length - 1;
   if (next >= currentItems.length) next = 0;
 
@@ -343,85 +359,71 @@ if (galleryGrid) {
   renderBatch();
 }
 
+/* Support static gallery tiles present in `index.html`: build currentItems from DOM if GALLERY_ITEMS absent */
+if (galleryGrid && (!currentItems || !currentItems.length)) {
+  const staticTiles = Array.from(galleryGrid.querySelectorAll('.gallery-tile'));
+  if (staticTiles.length) {
+    currentItems = staticTiles.map((tile) => {
+      const img = tile.querySelector('img');
+      const src = img ? (img.currentSrc || img.src) : tile.dataset.src || '';
+      const title = tile.dataset.title || img?.alt || '';
+      return { src, title };
+    });
+
+    staticTiles.forEach((tile, i) => {
+      tile.addEventListener('click', (e) => {
+        e.preventDefault();
+        openLightbox(i);
+      });
+    });
+  }
+}
+
 /* =========================
-   UNIVERSAL LIGHTBOX (binds to .gallery-tile images sitewide)
+   QUOTE DIALOG (open/close handlers)
 ========================= */
-(function () {
-  const tiles = Array.from(document.querySelectorAll('.gallery-tile'));
-  if (!tiles.length) return;
+const quoteDialog = $('#quoteDialog');
+const quoteForm = $('#quoteForm');
+const openQuoteEls = $$('.js-open-quote') || [];
+const closeQuoteEls = $$('[data-quote-close]') || [];
 
-  // build items array from tiles (supports img inside button)
-  const items = tiles.map((tile) => {
-    const img = tile.querySelector('img');
-    const src = img ? (img.currentSrc || img.src) : tile.dataset.src || '';
-    const alt = img ? (img.alt || '') : '';
-    const title = tile.dataset.title || img?.getAttribute('title') || '';
-    return { src, alt, title };
-  });
-
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightboxImg');
-  const lbTitle = document.getElementById('lightboxTitle');
-  const lbPrev = document.getElementById('lbPrev');
-  const lbNext = document.getElementById('lbNext');
-  const closeEls = Array.from(document.querySelectorAll('[data-lb-close="true"]'));
-
-  let index = 0;
-  let openState = false;
-
-  function open(i) {
-    index = (i + items.length) % items.length;
-    const item = items[index];
-    if (!item) return;
-    if (lbImg) lbImg.src = item.src;
-    if (lbImg) lbImg.alt = item.alt || item.title || 'Image';
-    if (lbTitle) lbTitle.textContent = item.title || '';
-    if (lb) lb.classList.add('is-open');
-    if (lb) lb.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    openState = true;
-    // preload neighbors
-    const next = new Image(); next.src = items[(index + 1) % items.length].src;
-    const prev = new Image(); prev.src = items[(index - 1 + items.length) % items.length].src;
-  }
-
-  function close() {
-    if (lb) lb.classList.remove('is-open');
-    if (lb) lb.setAttribute('aria-hidden', 'true');
-    if (lbImg) lbImg.src = '';
-    document.body.style.overflow = '';
-    openState = false;
-  }
-
-  function next() { open(index + 1); }
-  function prev() { open(index - 1); }
-
-  tiles.forEach((tile, i) => {
-    tile.addEventListener('click', (e) => {
+if (quoteDialog && openQuoteEls.length) {
+  openQuoteEls.forEach((el) => {
+    el.addEventListener('click', (e) => {
       e.preventDefault();
-      open(i);
-    });
-    tile.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+      try {
+        if (typeof quoteDialog.showModal === 'function') quoteDialog.showModal();
+        else quoteDialog.classList.add('is-open');
+      } catch (err) {
+        quoteDialog.classList.add('is-open');
+      }
     });
   });
 
-  if (lbNext) lbNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
-  if (lbPrev) lbPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
-  closeEls.forEach((el) => el.addEventListener('click', (e) => { e.preventDefault(); close(); }));
-
-  // backdrop click
-  const backdrop = document.querySelector('.lightbox-backdrop');
-  if (backdrop) backdrop.addEventListener('click', close);
-
-  // click outside panel closes
-  if (lb) lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
-
-  // keyboard
-  document.addEventListener('keydown', (e) => {
-    if (!openState) return;
-    if (e.key === 'Escape') { close(); return; }
-    if (e.key === 'ArrowRight') { next(); return; }
-    if (e.key === 'ArrowLeft') { prev(); return; }
+  closeQuoteEls.forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      try { if (typeof quoteDialog.close === 'function') quoteDialog.close(); else quoteDialog.classList.remove('is-open'); } catch (err) { quoteDialog.classList.remove('is-open'); }
+    });
   });
-})();
+}
+
+// basic submit behavior: open mail client with prefilled content (no backend)
+if (quoteForm) {
+  quoteForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const name = data.get('name') || '';
+    const email = data.get('email') || '';
+    const phone = data.get('phone') || '';
+    const service = data.get('service') || '';
+    const message = data.get('message') || '';
+
+    const subject = encodeURIComponent(`Quote request: ${service} - ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\n\nNotes:\n${message}`);
+    window.location.href = `mailto:goyan_cc@hotmail.com?subject=${subject}&body=${body}`;
+  });
+}
+
+/* Universal lightbox removed — using single, consolidated lightbox controller above */
