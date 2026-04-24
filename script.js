@@ -10,11 +10,10 @@ const heroSection = $('.hero');
 const HERO_DURATION = 8000;
 
 const backgroundImages = [
-  "url('MGL%20Photos/PHOTO-2026-04-21-15-30-34.jpg')",
-  "url('MGL%20Photos/PHOTO-2026-04-21-15-30-33%208.jpg')",
   "url('MGL%20Photos/PHOTO-2026-04-21-15-30-35%205.jpg')",
-  "url('MGL%20Photos/PHOTO-2026-04-21-15-30-36.jpg')",
-  "url('MGL%20Photos/PHOTO-2026-04-21-15-30-38.jpg')"
+  "url('MGL%20Photos/PHOTO-2026-04-21-15-30-38%205.jpg')",
+  "url('MGL%20Photos/PHOTO-2026-04-21-15-30-35%206.jpg')",
+  "url('MGL%20Photos/PHOTO-2026-04-21-15-30-33%206.jpg')",
 ];
 
 const spotlightOrder = ['grow', 'cleanup', 'build', 'winter'];
