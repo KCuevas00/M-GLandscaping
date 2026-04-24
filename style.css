@@ -1615,3 +1615,15 @@ input, select, textarea{
   font-weight: 600;
   letter-spacing: 0.04em;
 }
+
+/* Fix: ensure eyebrow / muted text in hero is readable over images */
+.hero .eyebrow .muted,
+.hero .eyebrow { color: rgba(255,255,255,0.92) !important; }
+
+/* Mobile: stack contact grid into a single column for small viewports */
+@media (max-width: 720px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 18px; }
+  .contact-info { order: 2; }
+  .contact-cta { order: 1; }
+  .contact-info { min-height: auto; }
+}
