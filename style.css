@@ -347,16 +347,48 @@ a{ color: inherit; }
 
 /* background image (layer 0) */
 .hero::before {
+  /* reserved (no direct image here) — images are handled by .hero-bg layers */
   content: "";
   position: absolute;
   inset: 0;
-  background-image: var(--hero-photo);
+  background-image: none;
+  z-index: 0;
+}
+
+/* hero background element: two layered pseudo-elements used for opacity crossfade */
+.hero .hero-bg,
+.hero .hero-bg::before,
+.hero .hero-bg::after {
+  position: absolute;
+  inset: 0;
+  display: block;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.hero .hero-bg {
   z-index: 0;
+}
+
+.hero .hero-bg::before,
+.hero .hero-bg::after {
+  content: "";
+  z-index: 0;
+  transition: opacity 900ms ease;
+  opacity: 0;
+  will-change: opacity;
   filter: saturate(.98);
 }
+
+.hero .hero-bg::before { background-image: var(--hero-bg-a, var(--hero-photo)); opacity: 1; }
+.hero .hero-bg::after  { background-image: var(--hero-bg-b); }
+
+/* toggle which background is visible via data-active-bg on .hero */
+.hero[data-active-bg="a"] .hero-bg::before { opacity: 1; }
+.hero[data-active-bg="a"] .hero-bg::after  { opacity: 0; }
+.hero[data-active-bg="b"] .hero-bg::before { opacity: 0; }
+.hero[data-active-bg="b"] .hero-bg::after  { opacity: 1; }
 
 /* gradient overlay (layer 1) */
 .hero::after {
@@ -379,13 +411,13 @@ a{ color: inherit; }
   gap: 64px;
   align-items: center;
   align-content: center;
-  width: 100%;
   box-sizing: border-box;
-  padding: 0 20px;
+  /* center the inner grid horizontally while keeping existing grid columns intact */
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
-
-/* ensure the inner grid stays visually centered inside the flex parent */
-.hero .hero-inner { margin: auto 0; }
 
 /* Mobile stack */
 @media (max-width: 980px) {

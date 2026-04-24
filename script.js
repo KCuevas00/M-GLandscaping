@@ -7,6 +7,16 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 const heroSection = $('.hero');
 
+// setup active bg layer for crossfade ('a' or 'b')
+if (heroSection) {
+  const computed = getComputedStyle(heroSection).getPropertyValue('--hero-photo') || '';
+  const initialPhoto = computed.trim() || backgroundImages[0];
+  // initialize CSS vars used by the layered background
+  heroSection.style.setProperty('--hero-bg-a', initialPhoto);
+  heroSection.style.setProperty('--hero-bg-b', '');
+  heroSection.dataset.activeBg = heroSection.dataset.activeBg || 'a';
+}
+
 const HERO_DURATION = 8000;
 
 const backgroundImages = [
@@ -216,10 +226,15 @@ function updateHero() {
 
   const key = spotlightOrder[heroIndex];
 
-  heroSection.style.setProperty(
-    '--hero-photo',
-    backgroundImages[heroIndex % backgroundImages.length]
-  );
+  // Crossfade backgrounds using the inactive layer
+  const nextImage = backgroundImages[heroIndex % backgroundImages.length];
+  const active = heroSection.dataset.activeBg || 'a';
+  const inactive = active === 'a' ? 'b' : 'a';
+
+  // put the next image on the inactive layer, then flip the active flag to trigger CSS opacity transition
+  heroSection.style.setProperty(`--hero-bg-${inactive}`, nextImage);
+  // flip which pseudo-element is visible (CSS handles opacity transition)
+  heroSection.dataset.activeBg = inactive;
 
   setSpotlight(key);
   resetProgressBar();
