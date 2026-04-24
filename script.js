@@ -427,3 +427,17 @@ if (quoteForm) {
 }
 
 /* Universal lightbox removed — using single, consolidated lightbox controller above */
+
+// Back-to-top smooth scroll (minimal, isolated handler)
+(() => {
+  const backLinks = document.querySelectorAll('a.footer-link[href="#top"]');
+  backLinks.forEach((link) => {
+    // avoid duplicate listeners
+    if (link.dataset.backHandled) return;
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    link.dataset.backHandled = '1';
+  });
+})();
