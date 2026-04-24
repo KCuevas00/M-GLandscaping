@@ -17,6 +17,18 @@
   --ice: #7dd3fc;
   --accent: var(--leaf);
   --accent-2: var(--leaf-2);
+  /* per-season chip colors for hero spotlight chips */
+  --chip-grow: #4ade80;
+  --chip-grow-2: #16a34a;
+  --chip-cleanup: #fbbf24;
+  --chip-cleanup-2: #d97706;
+  --chip-build: #b08968;
+  --chip-build-2: #8b5a2b;
+  --chip-winter: #7dd3fc;
+  --chip-winter-2: #38bdf8;
+  /* fallback chip vars */
+  --chip: var(--chip-grow);
+  --chip-2: var(--chip-grow-2);
 
   --radius-lg: 22px;
   --radius-md: 16px;
@@ -399,6 +411,14 @@ a{ color: inherit; }
   color: #fff;
 }
 
+/* Constrain the hero content inner box so eyebrow, title, subtitle, CTAs,
+   and the chip row share the exact same horizontal content boundaries. */
+.hero .hero-copy .hero-content {
+  width: 100%;
+  max-width: 56ch; /* matches readable line-length used by subtitle/title */
+  box-sizing: border-box;
+}
+
 .hero .eyebrow {
   margin: 0 0 8px 0;
   color: rgba(255,255,255,0.9);
@@ -452,6 +472,12 @@ a{ color: inherit; }
   box-sizing: border-box;
   backdrop-filter: blur(6px);
 }
+
+/* Slight left padding so the spotlight card aligns with the hero text column on large screens */
+.hero .hero-spotlight { padding-left: 20px; }
+
+/* Hero-specific primary button uses the current hero accent for subtle coordination */
+.hero .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #07140e; }
 
 /* unified spotlight card: place a small logo badge inside the card */
 .hero .hero-spotlight {
@@ -511,6 +537,14 @@ a{ color: inherit; }
   flex-wrap: wrap;
   margin-bottom: 14px;
 }
+
+/* Align the compact spotlight inside the left column so its right edge lines up with the hero-spotlight column */
+.hero .hero-spotlight-compact {
+  /* keep the compact spotlight constrained to the same content rhythm
+     as the left text column; avoid shifting or floating the element */
+  max-width: 640px; /* matches .hero .hero-copy max-width */
+  width: 100%;
+}
 .chip {
   padding: 8px 12px;
   border-radius: 999px;
@@ -526,12 +560,19 @@ a{ color: inherit; }
 }
 
 .chip.is-active {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  /* default active styling uses the per-chip variables (overridden per data-season below) */
+  background: linear-gradient(135deg, var(--chip), var(--chip-2));
   border-color: transparent;
   color: #0b1a12;
   font-weight: 600;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
+
+/* per-season active chip variables */
+.chip[data-season="grow"].is-active { --chip: var(--chip-grow); --chip-2: var(--chip-grow-2); }
+.chip[data-season="cleanup"].is-active { --chip: var(--chip-cleanup); --chip-2: var(--chip-cleanup-2); }
+.chip[data-season="build"].is-active { --chip: var(--chip-build); --chip-2: var(--chip-build-2); }
+.chip[data-season="winter"].is-active { --chip: var(--chip-winter); --chip-2: var(--chip-winter-2); }
 .spotlight-card{
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,0.10);
@@ -674,7 +715,7 @@ a{ color: inherit; }
   margin-bottom: 12px;
   color: rgba(11,26,18,0.86);
 }
-.service-icon svg{ width: 24px; height: 24px; fill: currentColor; opacity: 0.95; }
+.service-icon svg{ width: 24px; height: 24px; opacity: 0.95; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .service-card h3{ margin: 0 0 8px; font-size: 18px; }
 .service-card p{ margin: 0 0 12px; color: var(--muted); }
 .service-details{
